@@ -1,2 +1,4 @@
 #!/bin/bash
-sudo dnf install hyprpaper hyprshot hyprlock hypridle wofi waybar -y
+sudo dnf copr enable solopasha/hyprland -y \
+&& sudo dnf install hyprland hyprland-devel -y \
+&& sudo dnf install hyprpaper hyprshot hyprlock hypridle wofi waybar -y
