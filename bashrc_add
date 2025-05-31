@@ -1,0 +1,4 @@
+...
+[ -z "$SSH_AUTH_SOCK" ] && eval "$(ssh-agent -s)" 1>/dev/null
+ssh-add ~/.ssh/github 2>/dev/null
+ssh-add ~/.ssh/github2 2>/dev/null
