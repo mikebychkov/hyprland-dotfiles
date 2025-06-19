@@ -1,0 +1,14 @@
+[Unit]
+Description=Hyprpaper wallpaper daemon
+After=default.target
+
+[Service]
+Environment=HOME=%h
+Environment=XDG_CONFIG_HOME=%h/.config
+ExecStart=/usr/bin/hyprpaper
+Restart=on-failure
+RestartSec=2
+Slice=background.slice
+
+[Install]
+WantedBy=default.target
