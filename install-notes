@@ -1,0 +1,85 @@
+#!/bin/bash
+
+set -e
+
+# Update system
+sudo pacman -Syu --noconfirm
+
+# Install Hyprland and ecosystem
+sudo pacman -S --noconfirm \
+  hyprland \
+  hyprpaper \
+  hyprlock \
+  hypridle \
+  waybar \
+  wofi \
+  kitty
+
+
+
+# Screenshots
+
+sudo pacman -S grim slurp wl-clipboard swappy
+
+grim -g "$(slurp)" - | swappy -f -
+
+bind = SUPER, S, exec, grim -g "$(slurp)" - | swappy -f -
+
+
+
+# Tools
+
+sudo pacman -S xdg-desktop-portal-hyprland qt5-wayland qt6-wayland
+
+sudo pacman -S --needed --noconfirm wget unzip fontconfig
+
+sudo pacman -S ttf-firacode-nerd ttf-hack-nerd
+
+
+
+# Terminal
+
+sudo pacman -S zsh
+
+chsh -s /bin/zsh
+
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+sudo pacman -S zsh-completions
+
+sudo pacman -S zsh-autosuggestions
+
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+
+
+# NeoVim
+
+sudo pacman -S jdk17-openjdk
+sudo pacman -S maven
+sudo pacman -S go
+
+# nvm + npm 
+
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+
+.zshrc +++
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+nvm install --lts
+
+npm install -g tree-sitter-cli
+npm install -g typescript typescript-language-server
+
+
+
+# Configure GIT
+
+git config --global user.name "your_name"
+git config --global user.name "your_email"
+
+ssh-keygen -t ed25519 -C "your_email@example.com" -f ~/.ssh/id_ed25519
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
